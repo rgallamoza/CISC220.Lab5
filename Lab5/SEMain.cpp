@@ -13,5 +13,6 @@ using namespace std;
 
 int main() {
 	Document doc("Monet.txt");
+
 	return 0;
 }
