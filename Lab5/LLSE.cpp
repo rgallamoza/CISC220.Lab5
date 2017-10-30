@@ -33,8 +33,10 @@ void LLSE::printLL(){
 		cout << tmp->word << ":" << tmp->count << ",";
 		tmp = tmp->next;
 	}
-
 	cout << endl;
+
+	cout << "Size: " << size << endl;
+	cout << "Wordcount: " << wordcount << endl;
 }
 
 void LLSE::addFirst(string x){
@@ -87,15 +89,12 @@ void LLSE::insertUnique(string x){
 
 		if(insert != NULL){
 			Node *newnode = new Node(x);
-			/*
-			if(insert->next == NULL){ 	// if insert->next == NULL then insert is last node
-				insert->next = newnode;
-				last = newnode;
-			}
-			*/
+
 			Node *tmp = insert->next;
 			insert->next = newnode;
+			newnode->prev = insert;
 			tmp->prev = newnode;
+			newnode->next = tmp;
 
 			size++;
 			wordcount++;
@@ -139,69 +138,68 @@ void LLSE::normalizeCounts(){
 }
 
 string LLSE::remFirst(){
+	Node *target = first;
 	Node *tmp = first->next;
+	string word = target->word;
 
 	size--;
-	wordcount -= first->count;
-
-	return first->word;
+	wordcount -= target->count;
 
 	tmp->prev = NULL;
-	delete first;
 	first = tmp;
+
+	delete target;
+
+	return word;
 }
 
 string LLSE::pop(){
+	Node *target = last;
 	Node *tmp = last->prev;
+	string word = target->word;
 
 	size--;
-	wordcount -= last->count;
-
-	return last->word;
+	wordcount -= target->count;
 
 	tmp->next = NULL;
-	delete last;
 	last = tmp;
+
+	delete target;
+
+	return word;
 }
 
 string LLSE::remNext(Node *n){
-	Node *tmp = n->next;
+	Node *target = n->next;
+	Node *tmp = n->next->next;
+	string word = target->word;
 
-	if(tmp->next == NULL){ 		// if tmp->next == NULL then tmp is last node
-		size--;
-		wordcount -= tmp->count;
+	size--;
+	wordcount -= target->count;
 
-		return tmp->word;
+	n->next = tmp;
+	tmp->prev = n;
 
-		n->next = NULL;
-		delete tmp;
-		last = n;
-	}
-	else{
-		size--;
-		wordcount -= tmp->count;
+	delete target;
 
-		return tmp->word;
-
-		n->next = tmp->next;
-		tmp->next->prev = n;
-		delete tmp;
-	}
+	return word;
 }
 
 void LLSE::eliminateLowWords(){
 	while(first->count < .004){
-		remFirst();
+		cout << "removing " << remFirst() << endl;
 	}
 	while(last->count < .004){
-		pop();
+		cout << "removing " << pop() << endl;
 	}
 
 	Node *tmp = first;
 
 	while(tmp->next != NULL){
+		remove:
 		if(tmp->next->count < .004){
-			remNext(tmp);
+			cout << "removing " << remNext(tmp) << endl;
+			goto remove;
 		}
 		tmp = tmp->next;
 	}

@@ -9,6 +9,7 @@
 #include "Document.hpp"
 #include <iostream>
 #include <stdlib.h>
+#include <string>
 using namespace std;
 
 int main() {

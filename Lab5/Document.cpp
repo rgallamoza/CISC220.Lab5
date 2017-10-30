@@ -70,6 +70,7 @@ void Document::readFile() {
 		if (!checkFunctionWords(word)) {  // doesn't insert function words
 			//cout << word << " is valid " << endl;
 			wordlist->insertUnique(word);
+			//wordlist->printLL();
 		}
 //		else {
 //			cout << word << " removed" << endl;
