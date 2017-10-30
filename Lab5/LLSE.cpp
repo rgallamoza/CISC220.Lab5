@@ -77,7 +77,6 @@ void LLSE::push(string x){
 }
 
 void LLSE::insertUnique(string x){
-
 	if(first == NULL){
 		addFirst(x);
 	}
@@ -110,7 +109,6 @@ Node *LLSE::findInsert(string x){
 	Node *insert;
 
 	while(tmp != NULL){
-		tmp = tmp->next;
 		if(tmp->word == x){
 			tmp->count++;
 			wordcount++;
@@ -126,6 +124,7 @@ Node *LLSE::findInsert(string x){
 			insert = tmp;
 			break;
 		}
+		tmp = tmp->next;
 	}
 
 	return insert;
