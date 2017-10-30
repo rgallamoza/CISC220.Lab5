@@ -32,11 +32,13 @@ void LLSE::printLL(){
 
 	while (tmp != NULL){
 		cout << tmp->word << ":" << tmp->count << ",";
+		//cout << tmp->word;
+		//printf(":%4.4f,",tmp->count);
 		tmp = tmp->next;
 	}
 	cout << endl;
 
-	cout << "Size: " << size << endl;
+	cout << "Size: " << size << endl;			//for testing purposes
 	cout << "Wordcount: " << wordcount << endl;
 }
 
