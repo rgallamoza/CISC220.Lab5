@@ -21,6 +21,7 @@ LLSE::~LLSE(){
 
 	while (first != NULL){
 		tmp = first->next;
+		tmp->prev = NULL;
 		delete first;
 		first = tmp;
 	}
@@ -148,6 +149,7 @@ string LLSE::remFirst(){
 	tmp->prev = NULL;
 	first = tmp;
 
+	target->next = NULL;
 	delete target;
 
 	return word;
@@ -164,6 +166,7 @@ string LLSE::pop(){
 	tmp->next = NULL;
 	last = tmp;
 
+	target->prev = NULL;
 	delete target;
 
 	return word;
@@ -180,6 +183,8 @@ string LLSE::remNext(Node *n){
 	n->next = tmp;
 	tmp->prev = n;
 
+	target->prev = NULL;
+	target->next = NULL;
 	delete target;
 
 	return word;
