@@ -16,14 +16,14 @@ LLSE::LLSE(){
 	wordcount = 0;
 }
 
-LLSE::~LLSE(){
+LLSE::~LLSE() {
 	Node *tmp;
-
-	while (first != NULL){
+	while (first != NULL) {
 		tmp = first->next;
-		tmp->prev = NULL;
+		first->next = NULL;
 		delete first;
 		first = tmp;
+
 	}
 }
 
